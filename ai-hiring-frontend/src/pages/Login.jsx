@@ -2,7 +2,8 @@ import { useState } from "react"
 import { useUser } from "../context/userContext"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
-import { Sparkle } from "lucide-react"
+import { Eye, EyeOff, Sparkle } from "lucide-react"
+import axios from "axios"
 
 function Login(){
     const {setUser, loading, setLoading} = useUser()
@@ -84,13 +85,13 @@ function Login(){
         setLoading(true)
 
         try {
-            const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/login`, formData, {withCredentials: true})
+            const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/user_login`, formData, {withCredentials: true})
             console.log(data.data)
             setUser(data.data)
 
             setTimeout(() => {
                 toast.success(`You logged in successfully`)
-                navigate('/')
+                navigate('/dashboard')
 
             }, 500)
 
@@ -116,7 +117,7 @@ function Login(){
                     </div>
 
                     <p className="text-4xl mb-4">Sign In</p>
-                    <p className='text text-slate-500 mb-4'>To continue to BlueSky</p>
+                    <p className='text text-slate-500 mb-4'>To continue to TALENT AI</p>
                 </div>
 
                 <div className='w-full flex flex-col items-center px-6'>
@@ -148,18 +149,18 @@ function Login(){
                             {formData.password &&
                             <button type='button' className='cursor-pointer absolute right-2' onClick={() => setShowPassword(prev => !prev)}>
                                 {showPassword ?
-                                    <img className='h-6 w-6' src="../../hidden.png" alt="" /> :
-                                    <img className='h-6 w-6' src="../../view.png" alt="" />
+                                     <Eye className="h-6 w-6"/> :
+                                     <EyeOff className="h-6 w-6"/>
                                 }
                             </button>}
                         </div>
                         {errors?.password && <p className='text-sm text-red-600 mt-1'>{errors?.password}</p>}
                     </div>
 
-                    <button onClick={(e) => handleLogin(e)} className="cursor-pointer bg-indigo-500 text-white py-2 w-full rounded-full">Sign in</button>
+                    <button onClick={(e) => handleLogin(e)} className="cursor-pointer bg-indigo-600 text-white py-2  w-full rounded-full">Sign in</button>
 
                     <div className="flex mt-4 mb-8 gap-1">
-                        <p>Don't have an account?</p> <button type='button' onClick={() => navigate('/register')} className="cursor-pointer text-indigo-700">Sign up</button>
+                        <p>Don't have an account?</p> <button type='button' onClick={() => navigate('/user/register')} className="cursor-pointer text-indigo-700">Sign up</button>
                     </div>
                 </div>
 

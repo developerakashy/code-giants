@@ -140,8 +140,8 @@ function Registration(){
     const createUser = async () => {
         setLoading(true)
         try {
-            const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/register`, {
-                fullname: `${formData?.fullName}`,
+            const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/user_register`, {
+                fullName: `${formData?.fullName}`,
                 email: formData?.email,
                 password: formData?.password
             })
@@ -151,15 +151,12 @@ function Registration(){
 
             setTimeout(() => {
                 setFormData({
-                    firstName: '',
-                    lastName: '',
+                    fullName: '',
                     email: '',
-                    username: '',
                     password: ''
                 })
-                setIsUsernameAvailable(null)
+
                 setEmail(null)
-                setUsername(null)
                 setShowPassword(false)
                 setErrors({})
                 navigate('/login')
@@ -175,7 +172,6 @@ function Registration(){
         } finally {
             setTimeout(() => {
                 setLoading(false)
-
             }, 600)
         }
     }
@@ -190,7 +186,7 @@ function Registration(){
                     </div>
 
                     <p className="text-4xl mb-4">Sign Up</p>
-                    <p className='text text-slate-500 mb-4'>To continue to BlueSky</p>
+                    <p className='text text-slate-500 mb-4'>To continue to TALENT AI</p>
                 </div>
 
                 <div className='w-full flex flex-col items-center px-6'>
@@ -249,10 +245,10 @@ function Registration(){
                         {errors?.password && <p className='text-sm text-red-600 mt-1'>{errors?.password}</p>}
                     </div>
 
-                    <button onClick={(e) => handelUserRegistration(e)} className="cursor-pointer bg-indigo-500 text-white py-2 w-full rounded-full">Sign up</button>
+                    <button onClick={(e) => handelUserRegistration(e)} className="cursor-pointer bg-indigo-600 text-white py-2 w-full rounded-full">Sign up</button>
 
                     <div className="flex mt-8 mb-6 gap-1">
-                        <p>Already have an account?</p> <button type='button' onClick={() => navigate('/login')} className="cursor-pointer text-indigo-700">Sign in</button>
+                        <p>Already have an account?</p> <button type='button' onClick={() => navigate('/user/login')} className="cursor-pointer text-indigo-700">Sign in</button>
                     </div>
                 </div>
 
