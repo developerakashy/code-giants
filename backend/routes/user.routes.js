@@ -3,17 +3,18 @@ const userRoute = express.Router();
 import { checkAuthenticationCookie } from "../middleware/authenticate.middleware.js";
 
 // Importing all the functions
-import { 
-  userRegister, 
-  userLogin, 
-  userLogout, 
-  userInfo, 
-  generateOtp, 
-  verify_otp, 
-  
-  changePassword, 
-  changeEmail, 
-  checkPassword 
+import {
+  userRegister,
+  userLogin,
+  userLogout,
+  userInfo,
+  generateOtp,
+  verify_otp,
+
+  changePassword,
+  changeEmail,
+  checkPassword,
+  isUserAvailable
 } from "../controllers/user.controller.js";
 
 
@@ -27,6 +28,7 @@ userRoute.post("/verify_user_otp",verify_otp);
 userRoute.post("/change_password",changePassword);
 userRoute.post("/changeEmail",checkAuthenticationCookie("accessToken"),changeEmail);
 userRoute.post("/check_password",checkAuthenticationCookie("accessToken"),checkPassword);
+userRoute.post('/exist', isUserAvailable)
 
 
 export default userRoute;

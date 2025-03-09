@@ -30,8 +30,8 @@ const checkAuthenticationCookie = (cookieName) => {
           return res.status(401).json({ message: "your token has been expired" });
         }
 
-       
-        //let fetch user from database 
+
+        //let fetch user from database
         const userFromDB = await User.findById(id).select("-password -salt -salt -refreshToken ");
 
         const newAccessToken=await setUser(userFromDB);
@@ -47,14 +47,14 @@ const checkAuthenticationCookie = (cookieName) => {
           secure:true,
       }).json(new ApiResponse(
           200,
-      
+
               loginUser
           ,
           "user logged in successfully"
       ))
 
-        
- 
+
+
        // const id=refreshToken
       }
       if (!user || !user.id) {
